@@ -17,19 +17,21 @@
 ---------------
   
   To rerun the code follow the following steps in the folder "Training_Model":
-  
-  1. Run the python code "Bias_is_all_you_need.py". 
+
+  1. Load the files "train_neg_full.txt" and "train_pos_full.txt" into the folder 
+
+  2. Run the python code "Bias_is_all_you_need.py". 
      This saves in the folder ".\local_models\own_models" the saving points of the different models as well as the configuration to run the hierarchical steps. 
      It further generates in the file "loss_eval_data.json" which includes:
        A 3D Array where the first dimension is the hirarchical Level the second dimension represents the progession of the training and in the 3 dimension saves in the first element the loss and in the second element the accuracy.
      Note: This code uses CPU so rerunning is not recommended as it Needs around 3 days to complete. We further did not upload the trained models as GitHub does not allow for such big files (over 1 GB) 
 
-  2. After completion of the first step run "Analyze_Results.py" to evaluate the trained models extensively
+  3. After completion of the first step run "Analyze_Results.py" to evaluate the trained models extensively
      This script uses the files generated in ".\local_models\own_models". 
      It  generates the file "Determine_Clustering_Results.json" which includes the final accuracy evaluated on 100000 sentences, accuracy on the different levels and information on the different clusters found. 
      Note: "Determine_Clustering_Results.json" includes all sentences evaluated. Therefore it is not that readable. We programmed therefore a python file which presents the results more nicely. This can be found in the folder Performance. 
 
-  3. After completion of the first step run "Make_Submission.py" to generate the Submission.
+  4. After completion of the first step run "Make_Submission.py" to generate the Submission.
      This script uses the files generated in ".\local_models\own_models"
      This script generates the file "my_submission.csv" which includes our submission.
 
