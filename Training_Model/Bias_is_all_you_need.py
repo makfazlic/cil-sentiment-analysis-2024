@@ -25,14 +25,12 @@ from tqdm import tqdm
 #    Train and Eval Parameters    #
 ###################################
 
-# MINUTE = 60
-MINUTE = 1
+MINUTE = 60
 EVALUATION_TIME = 15 * MINUTE
 CLUSTER_INITIALIZATION_TIME = 30 * MINUTE
 BIASING_DETERMINING_TIME = 30 * MINUTE
 DEVICE = "cpu"
-NUMBER_OF_TRAINING_BATCHES = 60 * 2
-# NUMBER_OF_TRAINING_BATCHES = 6000 * 2
+NUMBER_OF_TRAINING_BATCHES = 6000 * 2
 NUMBER_OF_SAVED_MODELS = 10
 
 
@@ -559,8 +557,7 @@ def get_train_and_test_data():
 
         data = []
         with open(filename, 'r', encoding='utf-8') as f:
-            # count = 1250000
-            count = 1000
+            count = 1250000
             for line in tqdm(islice(f, count), total=count, desc='Loading Tweets'):
                 line = line.rstrip()
                 if not matches_pattern(line) and line not in data:
