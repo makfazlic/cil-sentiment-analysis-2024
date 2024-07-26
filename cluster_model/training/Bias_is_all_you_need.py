@@ -565,7 +565,7 @@ def get_train_and_test_data():
         return data
 
     input_data = {0: load_data("./train_neg_full.txt"),
-                  1: load_data("./train_neg_full.txt")}
+                  1: load_data("./train_pos_full.txt")}
 
     train_data_labeled0, test_data_labeled0 = train_test_split(input_data[0], test_size=0.33, random_state=42)
     train_data_labeled1, test_data_labeled1 = train_test_split(input_data[1], test_size=0.33, random_state=42)
