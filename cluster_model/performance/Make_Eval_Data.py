@@ -48,13 +48,16 @@ for acComp in complist:
                 print("neg",Clustering_Results[ackey]["Clusters"][accluster]["Total_0"])
                 print("biased",Clustering_Results[ackey]["Clusters"][accluster]["Biased"])
                 print(inputtext)
-
+    
+    batches_per_level=1200
+    if len(loss_eval_data)==1:
+        batches_per_level=3600
     for level,ac_loss_arr in enumerate(loss_eval_data):
         accuracy=[]
         batch=[]
         for ac_DP_pos,ac_DP in enumerate(ac_loss_arr):
             accuracy.append(ac_DP[1])
-            batch.append(1200*ac_DP_pos+1)
+            batch.append(batches_per_level*ac_DP_pos+1)
         plt.figure(figsize=(4,3),dpi=80)
         plt.plot(batch,accuracy)
         #plt.plot(batch,loss,label="loss")
