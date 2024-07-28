@@ -155,7 +155,7 @@ def datapoint_is_biased(ac_datapoint, biasing_step_data):
 
 def get_batches(actual_position, training_data, training_samples, seen_datapoints, take_seen_one_prob, biasing_step_data, batch_size):
     if batch_size % 2 != 0:
-        sys.exit("Batch has to be dividable by 2")
+        sys.exit("Batch has to be divisible by 2")
 
     half_of_batch_size = batch_size // 2
     batch = [[], []]
