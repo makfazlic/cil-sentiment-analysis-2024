@@ -1,10 +1,12 @@
-# cil-sentiment-analysis-2024
-## Overview
-### Baseline Experiments
-### Preprocessing Experiments
-### Clustering Model
+# CIL Tweet Sentiment Analysis
+## The Data
+The twitter data used can be downloaded at [[link]].
+## Baseline Experiments
+The baseline experiments include a Jupyter notebook to train some basic models on the data. The baseline mentioned in the report uses the BoW embedding with 5000 features and Logistic Regression as the model. To be able to run the code, the folder `twitter-datasets` needs to be put into the folder `baselines`.
+## Preliminary Experiments
+## Clustering Model
 The folder `cluster_model` contains our model.
-#### Training
+### Training
 The folder `training` includes the code for training and evaluating the hierarchical algorithm for reproduction reasons. It further includes the code for creating the Submission.
 To run the code follow the following steps in the folder `training`:
 
