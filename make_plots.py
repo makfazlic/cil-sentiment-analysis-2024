@@ -1,8 +1,8 @@
 import os
 import json
-
 import matplotlib
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 EVAL_DATA_FILE = "loss_eval_data.json"
 CLUSTERING_RESULTS_FILE = "clustering_results.json"
@@ -18,11 +18,15 @@ def make_plots(filename, models, show_legend=True):
         ax = axs[idx // 2, idx % 2]
         model_name = model_result_folder['folder'].replace('e5-', '')
 
-        with open(f"{model_result_folder}/{CLUSTERING_RESULTS_FILE}") as f:
-            clustering_results = json.load(f)
-        print_model_result_data(model_name, clustering_results)
+        clustering_file = f"{results_folder}/{model_result_folder['folder']}/{CLUSTERING_RESULTS_FILE}"
+        eval_data_file = f"{results_folder}/{model_result_folder['folder']}/{EVAL_DATA_FILE}"
 
-        with open(f"{model_result_folder['folder']}/{EVAL_DATA_FILE}") as f:
+        if Path(clustering_file).is_file():
+            with open(clustering_file) as f:
+                clustering_results = json.load(f)
+            print_model_result_data(model_name, clustering_results)
+
+        with open(eval_data_file) as f:
             loss_eval_data = json.load(f)
 
         title = (model_name
@@ -54,7 +58,10 @@ def make_plots(filename, models, show_legend=True):
         axs[idx // 2, idx % 2].set_visible(False)
 
     fig.show()
-    fig.savefig(filename)
+
+    filepath = f'./work_files/plots/{filename}'
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    fig.savefig(filepath)
 
 
 def format_number(x, _):
@@ -99,7 +106,9 @@ def print_model_result_data(model_name, clustering_results):
                 print(input_text)
 
 
-folders = os.listdir()
+results_folder = './cluster_model/results/'
+# results_folder = './work_files/results/'
+folders = os.listdir(results_folder)
 folders.sort()
 
 hierarchical_models = []
@@ -109,9 +118,9 @@ for folder in folders:
     if folder.startswith("e5-hierarchical"):
         hierarchical_models.append({'folder': folder, 'xsize': 12000, 'xlabel': 'Batches'})
     elif folder.startswith("e5"):
-        non_hierarchical_models.append({'folder': folder, 'xsize': 12000, 'xlabel': 'Batches'})
+        non_hierarchical_models.append({'folder': folder, 'xsize': 36000, 'xlabel': 'Batches'})
     elif folder.startswith("Logistic"):
         non_hierarchical_models.append({'folder': folder, 'xsize': 200000, 'xlabel': 'Dataset size'})
 
-make_plots(f"hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
-make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)
+make_plots(f"cluster_model/results/hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
+make_plots(f"cluster_model/results/non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)
