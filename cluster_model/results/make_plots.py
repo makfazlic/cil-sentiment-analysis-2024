@@ -107,4 +107,4 @@ for folder in folders:
         non_hierarchical_models.append(folder)
 
 make_plots(f"hierarchical_model_accuracies.png", hierarchical_models, show_legend=True, no_of_batches=1200)
-make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False, no_of_batches=3600)
+make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False, no_of_batches=1200)
