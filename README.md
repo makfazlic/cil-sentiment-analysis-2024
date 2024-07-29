@@ -1,6 +1,6 @@
 # CIL Tweet Sentiment Analysis
 ## The Data
-The twitter data used can be downloaded at [[link]].
+The twitter data used can be downloaded at [Kaggle](https://www.kaggle.com/competitions/ethz-cil-text-classification-2024/data).
 ## Baseline Experiments
 The baseline experiments include a Jupyter notebook to train some basic models on the data. The baseline mentioned in the report uses the BoW embedding with 5000 features and Logistic Regression as the model. To be able to run the code, the folder `twitter-datasets` needs to be put into the folder `baselines`.
 ## Preliminary Experiments
