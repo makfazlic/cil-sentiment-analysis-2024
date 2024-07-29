@@ -8,20 +8,21 @@ EVAL_DATA_FILE = "loss_eval_data.json"
 CLUSTERING_RESULTS_FILE = "clustering_results.json"
 
 
-def make_plots(filename, models, no_of_batches, show_legend=True):
+def make_plots(filename, models, show_legend=True):
     fig, axs = plt.subplots(2, 2, figsize=(8, 8))
 
     plt.subplots_adjust(left=0.125, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.5)
 
     for idx, model_result_folder in enumerate(models):
+
         ax = axs[idx // 2, idx % 2]
-        model_name = model_result_folder[3:]
+        model_name = model_result_folder['folder'].replace('e5-', '')
 
-        with open(f"{model_result_folder}/{CLUSTERING_RESULTS_FILE}") as f:
-            clustering_results = json.load(f)
-        print_model_result_data(model_name, clustering_results)
+        # with open(f"{model_result_folder}/{CLUSTERING_RESULTS_FILE}") as f:
+        #     clustering_results = json.load(f)
+        # print_model_result_data(model_name, clustering_results)
 
-        with open(f"{model_result_folder}/{EVAL_DATA_FILE}") as f:
+        with open(f"{model_result_folder['folder']}/{EVAL_DATA_FILE}") as f:
             loss_eval_data = json.load(f)
 
         title = (model_name
@@ -36,11 +37,11 @@ def make_plots(filename, models, no_of_batches, show_legend=True):
             batches = []
             for i, datapoint in enumerate(loss_array):
                 accuracy.append(datapoint[1])
-                batches.append(no_of_batches * i + 1)
+                batches.append((model_result_folder['xsize'] * i) // len(loss_array) + 1)
 
             ax.plot(batches, accuracy, label=f"level {level}")
 
-        ax.set_xlabel("Batches")
+        ax.set_xlabel(model_result_folder['xlabel'])
         ax.set_ylabel("Accuracy")
         ax.set_ylim([0, 1])
         ax.grid()
@@ -57,9 +58,13 @@ def make_plots(filename, models, no_of_batches, show_legend=True):
 
 
 def format_number(x, _):
-    if x == 0:
-        return "0"
-    return f"{int(x // 1000)}k"
+    if x < 1000:
+        return x
+    if x < 10000:
+        return f"{x / 1000:.1f}k"
+    if x < 1000000:
+        return f"{int(x // 1000)}k"
+    return f"{x / 1000000:.1f}M"
 
 
 def print_model_result_data(model_name, clustering_results):
@@ -102,9 +107,11 @@ non_hierarchical_models = []
 
 for folder in folders:
     if folder.startswith("e5-hierarchical"):
-        hierarchical_models.append(folder)
+        hierarchical_models.append({'folder': folder, 'xsize': 12000, 'xlabel': 'Batches'})
     elif folder.startswith("e5"):
-        non_hierarchical_models.append(folder)
+        non_hierarchical_models.append({'folder': folder, 'xsize': 12000, 'xlabel': 'Batches'})
+    elif folder.startswith("Logistic"):
+        non_hierarchical_models.append({'folder': folder, 'xsize': 200000, 'xlabel': 'Dataset size'})
 
-make_plots(f"hierarchical_model_accuracies.png", hierarchical_models, show_legend=True, no_of_batches=1200)
-make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False, no_of_batches=1200)
+# make_plots(f"hierarchical_model_accuracies.png", hierarchical_models, show_legend=True, batches_per_step=12000)
+make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)
