@@ -4,7 +4,7 @@ The Twitter data used can be downloaded at [Kaggle](https://www.kaggle.com/compe
 ## Baseline Experiments
 The baseline experiments are included in the notebook `baselines.ipynb` to train some basic models on the data. The baseline mentioned in the report uses the BoW embedding with 5000 features and Logistic Regression as the model.
 ## Data Exploration
-The notebook `data_exploration.ipynb` includes various models and preprocessing procedures. This was used to determine which preprocessing steps to take in the final model.
+The notebook `data_exploration.ipynb` includes various models and preprocessing procedures. This was used to determine which preprocessing steps to take in the final model. Some results of these preliminary experiments are shown in the graph `data_exploration.png`.
 ## Clustering Model
 ### Training
 To train the clustering model, run `bias_is_all_you_need.py`. This saves in the folder `.\local_models\own_models` the saving points of the different models as well as the configuration to run the hierarchical steps. This further generates the file `loss_eval_data.json` which includes a 3D array where the first dimension is the hierarchical level the second dimension represents the progression of the training and the 3 dimensions save in the first element the loss and in the second element the accuracy.
