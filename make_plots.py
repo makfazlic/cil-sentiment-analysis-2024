@@ -106,8 +106,7 @@ def print_model_result_data(model_name, clustering_results):
                 print(input_text)
 
 
-results_folder = './cluster_model/results/'
-# results_folder = './work_files/results/'
+results_folder = './work_files/results/'
 folders = os.listdir(results_folder)
 folders.sort()
 
@@ -122,5 +121,5 @@ for folder in folders:
     elif folder.startswith("Logistic"):
         non_hierarchical_models.append({'folder': folder, 'xsize': 200000, 'xlabel': 'Dataset size'})
 
-make_plots(f"work_files/results/hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
-make_plots(f"work_files/results/non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)
+make_plots(f"hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
+make_plots(f"non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)

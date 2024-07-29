@@ -1,0 +1,36 @@
+Index,Accuracy,Description
+models/model00.sav,0.86605,base model
+models/model01.pkl,0.841,small test model
+models/model02.pkl,0.7988700564971751,small test - no duplicates
+models/model03.pkl,0.8548656782967339,model 100k no hashtags
+models/model04.pkl,0.8548656782967339,model 100k no hashtags
+models/model05.pkl,0.8504568754178738,model 100k yes hashtags
+models/model06.pkl,0.8504568754178738,model 100k yes hashtags
+models/model07.pkl,0.8495654111878761,model 100k - unclosed parenthesis always neg
+models/model08.pkl,0.8591285162713734,model 200k - unclosed parenthesis always neg
+models/model09.pkl,0.8599007170435742,model 200k
+models/model10.pkl,0.8667402095973524,model 200k high LoRA dropout
+models/model11.pkl,0.85857694429123,"200k high dropout, parenthesis"
+models/model12.pkl,0.8638119412868337,"200k high dropout, no hashtags"
+models/model13.pkl,0.8344941956882256,"200k high dropout, unified hashtags, unified numbers"
+models/model14.pkl,0.8581990730523064,200k high dropout removed users
+models/model15.pkl,0.8370296811210416,"unify users, frame neg, thanks pos"
+models/model16.pkl,0.8659384309831182,"unify users, frame neg, thanks pos"
+models/model17.pkl,0.8660487697230498,"unify users, frame neg"
+models/model18.pkl,0.8613042039059914,"unify #tags, unclosed parenthesis"
+models/model19.pkl,0.8707933355401082,"50% dropout, unified #tags"
+models/model20.pkl,0.8620765750855125,"60% dropout, unified #tags"
+models/model21.pkl,0.8645339216767788,bert-base-cased
+models/model22.pkl,0.8641730111442127,"bert-base-cased, unified #tags"
+models/model23.pkl,0.8733311265585347,"roberta, unified #tags"
+models/model24.pkl,0.8740209597352454,roberta
+models/model25.pkl,0.8707325157441167,"roberta, unify big numbers"
+models/model26.pkl,0.876227247655819,"roberta, LoRA bias"
+models/model27.pkl,0.8759792563168929,"roberta, LoRA bias, unified #tags"
+models/model28.pkl,0.8819635962493105,gte-large
+models/model29.pkl,0.8862658576944291,multilingual-e5-large-instruct
+models/model30.pkl,0.8479867622724766,all-MiniLM-L6-v2
+models/model31.pkl,0.879730773474567,"gte-large, LoRA bias, unified #tags"
+models/model32.pkl,0.8769723049762772,"gte-large, LoRA bias, unified #tags, more dropout"
+./work_files/data_exploration/models/model33.pkl,0.854683879510096,cool name for charts
+./work_files/data_exploration/models/model34.pkl,0.854683879510096,cool name for charts
