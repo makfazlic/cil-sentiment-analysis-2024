@@ -18,9 +18,9 @@ def make_plots(filename, models, show_legend=True):
         ax = axs[idx // 2, idx % 2]
         model_name = model_result_folder['folder'].replace('e5-', '')
 
-        # with open(f"{model_result_folder}/{CLUSTERING_RESULTS_FILE}") as f:
-        #     clustering_results = json.load(f)
-        # print_model_result_data(model_name, clustering_results)
+        with open(f"{model_result_folder}/{CLUSTERING_RESULTS_FILE}") as f:
+            clustering_results = json.load(f)
+        print_model_result_data(model_name, clustering_results)
 
         with open(f"{model_result_folder['folder']}/{EVAL_DATA_FILE}") as f:
             loss_eval_data = json.load(f)
