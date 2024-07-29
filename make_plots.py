@@ -122,5 +122,5 @@ for folder in folders:
     elif folder.startswith("Logistic"):
         non_hierarchical_models.append({'folder': folder, 'xsize': 200000, 'xlabel': 'Dataset size'})
 
-make_plots(f"cluster_model/results/hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
-make_plots(f"cluster_model/results/non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)
+make_plots(f"work_files/results/hierarchical_model_accuracies.png", hierarchical_models, show_legend=True)
+make_plots(f"work_files/results/non_hierarchical_model_accuracies.png", non_hierarchical_models, show_legend=False)

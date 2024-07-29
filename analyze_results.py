@@ -1,20 +1,17 @@
 import json
 import random
-from itertools import islice
 
 import torch
 from sentence_transformers import SentenceTransformer
-from sklearn.model_selection import train_test_split
 from torch import nn
-from tqdm import tqdm
 
-from Training_Model.Bias_is_all_you_need import get_train_and_test_data
+from bias_is_all_you_need import get_train_and_test_data
 
 NUMBER_OF_ITERATIONS = 100000
 
 _, actual_test_data = get_train_and_test_data()
 
-with open("local_models/own_models/Configuration_Biasing_BS_2_TS_12000.json", "r") as f:
+with open("./work_files/local_models/own_models/Configuration_Biasing_BS_2_TS_12000.json", "r") as f:
     config_data = json.load(f)
 
 for i in range(len(config_data)):
@@ -171,6 +168,8 @@ for i in results:
         if results[i]["Clusters"][j]["Total_1"] != 0:
             results[i]["Clusters"][j]["Accuracy_1"] = results[i]["Clusters"][j]["Correct_1"] / results[i]["Clusters"][j]["Total_1"]
 
-with open("Determine_Clustering_Results.json", "w") as f:
+filepath = f'./work_files/Determine_Clustering_Results.json'
+os.makedirs(os.path.dirname(filepath), exist_ok=True)
+with open(filepath, "w") as f:
     json.dump(results, f, sort_keys=False, indent=1)
 print(json.dumps(results, sort_keys=False, indent=1), flush=True)

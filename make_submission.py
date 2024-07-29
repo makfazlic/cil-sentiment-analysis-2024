@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 def load_data():
     lines = []
-    with open("test_data.txt", 'r', encoding='utf-8') as infile:
+    with open("./data/test_data.txt", 'r', encoding='utf-8') as infile:
         for line in infile.read().split("\n")[:-1]:
             assert line.count(",") > 0
             _, line = line.split(",", 1)
@@ -17,10 +17,10 @@ def load_data():
 
 
 texts = load_data()
-with open('sample_submission.csv', 'r') as f:
+with open('./data/sample_submission.csv', 'r') as f:
     predictions = list(csv.reader(f, delimiter=","))
 
-with open("local_models/own_models/Configuration_Biasing_BS_2_TS_12000.json", "r") as f:
+with open("./work_files/local_models/own_models/Configuration_Biasing_BS_2_TS_12000.json", "r") as f:
     config_data = json.load(f)
 
 for i in range(len(config_data)):
@@ -61,7 +61,9 @@ for index, text in enumerate(tqdm(texts)):
     prediction_share[share_index] += 1
     predictions[index + 1][1] = prediction
 
-with open('my_submission.csv', 'w', newline='') as f:
+submission_filepath = './submission/my_submission.csv'
+os.makedirs(os.path.dirname(submission_filepath), exist_ok=True)
+with open(submission_filepath, 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerows(predictions)
 

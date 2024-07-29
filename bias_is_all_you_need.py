@@ -473,11 +473,11 @@ def train_new_model(train_data,
                     batch_size=8)
 
                 loss_statistic[-1].append([loss.item(), eval_term])
-                with open("loss_eval_data.json", "w") as f:
+                with open("./work_files/results/_current_model/loss_eval_data.json", "w") as f:
                     json.dump(loss_statistic, f)
-                file_names = [f"./local_models/own_models/Embedding_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}",
-                              f"./local_models/own_models/Adapter_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}.mod",
-                              f"./local_models/own_models/Clustering_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}.mod"]
+                file_names = [f"./work_files/local_models/own_models/Embedding_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}",
+                              f"./work_files/local_models/own_models/Adapter_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}.mod",
+                              f"./work_files/local_models/own_models/Clustering_Model_BS_{len(biasing_step_data)}_TS_{training_step_iteration}.mod"]
                 embedding_model.save(file_names[0])
                 torch.save(adapter_model, file_names[1])
                 torch.save(clustering_model, file_names[2])
@@ -492,7 +492,7 @@ def train_new_model(train_data,
                                                                  biasing_determining_time,
                                                                  test_data,
                                                                  file_names)
-                    with open(f"./local_models/own_models/Configuration_Biasing_BS_{len(biasing_step_data) - 1}_TS_{training_step_iteration}.json",
+                    with open(f"./work_files/local_models/own_models/Configuration_Biasing_BS_{len(biasing_step_data) - 1}_TS_{training_step_iteration}.json",
                               "w") as f:
                         savedata = []
                         for bsd in biasing_step_data:
@@ -555,17 +555,17 @@ def get_train_and_test_data():
 
     def load_data(filename):
 
-        data = []
+        data = set()
         with open(filename, 'r', encoding='utf-8') as f:
             count = 1250000
             for line in tqdm(islice(f, count), total=count, desc='Loading Tweets'):
                 line = line.rstrip()
                 if not matches_pattern(line) and line not in data:
-                    data.append(line)
-        return data
+                    data.add(line)
+        return list(data)
 
-    input_data = {0: load_data("./train_neg_full.txt"),
-                  1: load_data("./train_pos_full.txt")}
+    input_data = {0: load_data("./data/train_neg_full.txt"),
+                  1: load_data("./data/train_pos_full.txt")}
 
     train_data_labeled0, test_data_labeled0 = train_test_split(input_data[0], test_size=0.33, random_state=42)
     train_data_labeled1, test_data_labeled1 = train_test_split(input_data[1], test_size=0.33, random_state=42)
