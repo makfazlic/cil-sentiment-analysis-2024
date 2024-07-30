@@ -1,4 +1,6 @@
 # CIL Tweet Sentiment Analysis
+## Repository
+The GitHub repository for this code can be found at https://github.com/makfazlic/cil-sentiment-analysis-2024
 ## The Data
 The Twitter data used can be downloaded at [Kaggle](https://www.kaggle.com/competitions/ethz-cil-text-classification-2024/data). Download and put the files `train_neg_full.txt` and `train_pos_full.txt` into the folder `data`.
 ## Baseline Experiments
