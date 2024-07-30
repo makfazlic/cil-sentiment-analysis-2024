@@ -10,6 +10,47 @@ from torch import nn
 from tqdm import tqdm
 
 
+class AdaptorNet(nn.Module):
+    def __init__(self, genome, input_size):
+        super(AdaptorNet, self).__init__()
+        layer_list = []
+        for i in range(genome["Depth_Adapter"]):
+            layer_in_size = None
+            if i == 0:
+                layer_in_size = input_size
+            elif i == 1:
+                layer_in_size = genome["Width_First_Layer"]
+            elif i == 2:
+                layer_in_size = genome["Width_Second_Layer"]
+
+            layer_out_size = None
+            if i == genome["Depth_Adapter"] - 1:
+                layer_out_size = 1
+            elif i == 0:
+                layer_out_size = genome["Width_First_Layer"]
+            elif i == 1:
+                layer_out_size = genome["Width_Second_Layer"]
+            layer_list.append(nn.Linear(layer_in_size, layer_out_size))
+        self.layer_list = nn.ModuleList(layer_list)
+
+        self.activation_function = None
+        if genome["Activation_Function_Adapter_Model"] == "ReLU":
+            self.activation_function = nn.ReLU()
+        elif genome["Activation_Function_Adapter_Model"] == "Sigmoid":
+            self.activation_function = nn.Sigmoid()
+        elif genome["Activation_Function_Adapter_Model"] == "Tanh":
+            self.activation_function = nn.Tanh()
+
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, data):
+        for layer in self.layer_list[:-1]:
+            data = layer(data)
+            data = self.activation_function(data)
+        data = self.layer_list[-1](data)
+        return self.sigmoid(data)
+
+
 def get_train_and_test_data():
     def matches_pattern(line):
         return "<url>" in line and (line.count("(") > line.count(")"))
