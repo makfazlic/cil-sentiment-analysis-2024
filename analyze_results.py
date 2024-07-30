@@ -1,11 +1,37 @@
 import json
+import os
 import random
+from itertools import islice
 
 import torch
 from sentence_transformers import SentenceTransformer
+from sklearn.model_selection import train_test_split
 from torch import nn
+from tqdm import tqdm
 
-from bias_is_all_you_need import get_train_and_test_data
+
+def get_train_and_test_data():
+    def matches_pattern(line):
+        return "<url>" in line and (line.count("(") > line.count(")"))
+
+    def load_data(filename):
+
+        data = set()
+        with open(filename, 'r', encoding='utf-8') as f:
+            count = 1250000
+            for line in tqdm(islice(f, count), total=count, desc='Loading Tweets'):
+                line = line.rstrip()
+                if not matches_pattern(line) and line not in data:
+                    data.add(line)
+        return list(data)
+
+    input_data = {0: load_data("./data/train_neg_full.txt"),
+                  1: load_data("./data/train_pos_full.txt")}
+
+    train_data_labeled0, test_data_labeled0 = train_test_split(input_data[0], test_size=0.33, random_state=42)
+    train_data_labeled1, test_data_labeled1 = train_test_split(input_data[1], test_size=0.33, random_state=42)
+    return (train_data_labeled0, train_data_labeled1), (test_data_labeled0, test_data_labeled1)
+
 
 NUMBER_OF_ITERATIONS = 100000
 
